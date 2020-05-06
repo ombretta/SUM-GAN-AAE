@@ -9,9 +9,11 @@ from tqdm import tqdm, trange
 from layers import Summarizer, Discriminator
 from utils import TensorboardWriter
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 # labels for training the GAN part of the model
-original_label = torch.tensor(1.0).cuda()
-summary_label = torch.tensor(0.0).cuda()
+original_label = torch.tensor(1.0).to(device)
+summary_label = torch.tensor(0.0).to(device)
 
 class Solver(object):
     def __init__(self, config=None, train_loader=None, test_loader=None):
@@ -25,15 +27,15 @@ class Solver(object):
         # Build Modules
         self.linear_compress = nn.Linear(
             self.config.input_size,
-            self.config.hidden_size).cuda()
+            self.config.hidden_size).to(device)
         self.summarizer = Summarizer(
             input_size=self.config.hidden_size,
             hidden_size=self.config.hidden_size,
-            num_layers=self.config.num_layers).cuda()
+            num_layers=self.config.num_layers).to(device)
         self.discriminator = Discriminator(
             input_size=self.config.hidden_size,
             hidden_size=self.config.hidden_size,
-            num_layers=self.config.num_layers).cuda()
+            num_layers=self.config.num_layers).to(device)
         self.model = nn.ModuleList([
             self.linear_compress, self.summarizer, self.discriminator])
 
@@ -84,7 +86,7 @@ class Solver(object):
                 image_features = image_features.view(-1, self.config.input_size)
 
                 # [seq_len, 1024]
-                image_features_ = Variable(image_features).cuda()
+                image_features_ = Variable(image_features).to(device)
 
                 #---- Train sLSTM, eLSTM ----#
                 if self.config.verbose:
@@ -217,7 +219,7 @@ class Solver(object):
 
             # [seq_len, batch=1, 1024]
             video_tensor = video_tensor.view(-1, self.config.input_size)
-            video_feature = Variable(video_tensor).cuda()
+            video_feature = Variable(video_tensor).to(device)
 
             # [seq_len, 1, hidden_size]
             video_feature = self.linear_compress(video_feature.detach()).unsqueeze(1)
@@ -231,6 +233,7 @@ class Solver(object):
 
             score_save_path = self.config.score_dir.joinpath(
                 f'{self.config.video_type}_{epoch_i}.json')
+            
             with open(score_save_path, 'w') as f:
                 tqdm.write(f'Saving score at {str(score_save_path)}.')
                 json.dump(out_dict, f)

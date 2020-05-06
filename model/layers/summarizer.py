@@ -6,6 +6,8 @@ import torch.nn.functional as F
 
 from layers.lstmcell import StackedLSTMCell
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 class sLSTM(nn.Module):
     def __init__(self, input_size, hidden_size, num_layers=2):
         """Scoring LSTM"""
@@ -119,7 +121,7 @@ class dLSTM(nn.Module):
         batch_size = init_hidden[0].size(1)
         hidden_size = init_hidden[0].size(2)
 
-        input_step = Variable(torch.zeros(batch_size, hidden_size)).cuda()
+        input_step = Variable(torch.zeros(batch_size, hidden_size)).to(device) 
         h, c = init_hidden  # (h_0, c_0): last state of eLSTM
 
         out_features = []

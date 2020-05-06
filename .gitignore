@@ -1,0 +1,4 @@
+*.sbatch
+*.out
+model/exp0/
+data/

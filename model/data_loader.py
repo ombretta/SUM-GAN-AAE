@@ -9,7 +9,7 @@ import json
 class VideoData(Dataset):
     def __init__(self, mode, name, split_index):
         self.mode = mode
-        self.name = name #'tvsum'
+        self.name = name.lower() #'tvsum'
         self.datasets = ['../data/SumMe/eccv16_dataset_summe_google_pool5.h5',
                          '../data/TVSum/eccv16_dataset_tvsum_google_pool5.h5']
         self.splits_filename = ['../data/splits/' + self.name + '_splits.json']

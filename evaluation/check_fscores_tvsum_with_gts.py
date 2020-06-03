@@ -11,8 +11,8 @@ paths = ['../model/exp0/TVSum/results/split0', \
         '../model/exp0/TVSum/results/split3', \
         '../model/exp0/TVSum/results/split4'] # path to the json files with the computed importance scores for each epoch
 
-for path in [p for p in paths if "f_scores.txt" not in listdir(p)]:
-    results = listdir(path)
+for path in [p for p in paths if "f_scores_gts.txt" not in listdir(p)]:
+    results = [r for r in listdir(path) if "f_scores" not in r]
     results.sort(key=lambda video: int(video[6:-5]))
     PATH_TVSum = '../data/TVSum/eccv16_dataset_tvsum_google_pool5.h5'
     eval_method = 'avg' # the proposed evaluation method for TVSum videos
@@ -64,5 +64,5 @@ for path in [p for p in paths if "f_scores.txt" not in listdir(p)]:
         f_score_epochs.append(np.mean(all_f_scores))
         print("f_score: ",np.mean(all_f_scores))
     
-    with open(path+'/f_scores.txt', 'w') as outfile:  
+    with open(path+'/f_scores_gts.txt', 'w') as outfile:  
         json.dump(f_score_epochs, outfile)   

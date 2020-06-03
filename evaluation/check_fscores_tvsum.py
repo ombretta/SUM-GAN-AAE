@@ -5,7 +5,7 @@ import h5py
 from generate_summary import generate_summary
 from evaluation_metrics import evaluate_summary
 
-path = '../exp/TVSum/results/split1' # path to the json files with the computed importance scores for each epoch
+path = '../model/exp0/TVSum/results/split1' # path to the json files with the computed importance scores for each epoch
 results = listdir(path)
 results.sort(key=lambda video: int(video[6:-5]))
 PATH_TVSum = '../data/TVSum/eccv16_dataset_tvsum_google_pool5.h5'

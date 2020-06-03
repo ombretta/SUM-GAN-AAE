@@ -7,20 +7,29 @@ import numpy as np
 import json
 
 class VideoData(Dataset):
-    def __init__(self, mode, name, split_index):
+    def __init__(self, mode, name, features_type, split_index):
         self.mode = mode
         self.name = name.lower() #'tvsum'
+        self.features_type = features_type
         self.datasets = ['../data/SumMe/eccv16_dataset_summe_google_pool5.h5',
-                         '../data/TVSum/eccv16_dataset_tvsum_google_pool5.h5']
+                         '../data/TVSum/eccv16_dataset_tvsum_google_pool5.h5',
+                         '../data/SumMe/summe_i3d_mixed5c.h5',
+                         '../data/SumMe/tvsum_i3d_mixed5c.h5']
         self.splits_filename = ['../data/splits/' + self.name + '_splits.json']
         self.splits = []
         self.split_index = split_index # it represents the current split (varies from 0 to 4)
         temp = {}
 
         if 'summe' in self.splits_filename[0]:
-            self.filename = self.datasets[0]
+            if features_type == "google":
+                self.filename = self.datasets[0]
+            if features_type == "i3d":
+                self.filename = self.datasets[2]
         elif 'tvsum' in self.splits_filename[0]:
-            self.filename = self.datasets[1]
+            if features_type == "google":
+                self.filename = self.datasets[1]
+            if features_type == "i3d":
+                self.filename = self.datasets[3]
         self.video_data = h5py.File(self.filename, 'r')
 
         with open(self.splits_filename[0]) as f:

@@ -22,9 +22,11 @@ srun python main.py --split_index "
 
 video_types = ["TVSum", "SumMe"]
 
+features_type = "i3d", #"google"
+
 for video_type in video_types:
     for split_index in range(5):
-        full_text = text + str(split_index) + " --video_type=" + video_type
+        full_text = text + str(split_index) + " --video_type=" + video_type + " --features_type=" + features_type
     
         print(full_text)
         

@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 import pprint
 
-save_dir = Path('exp0')
+save_dir = Path('exp0_i3d') #instead of exp0
 
 def str2bool(v):
     """string to boolean"""
@@ -49,6 +49,7 @@ def get_config(parse=True, **optional_kwargs):
     parser.add_argument('--mode', type=str, default='train')
     parser.add_argument('--verbose', type=str2bool, default='true')
     parser.add_argument('--video_type', type=str, default='TVSum')
+    parser.add_argument('--features_type', type=str, default='google') #added i3d option
 
     # Model
     parser.add_argument('--input_size', type=int, default=1024)

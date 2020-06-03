@@ -11,7 +11,7 @@ paths = ['../model/exp0/TVSum/results/split0', \
         '../model/exp0/TVSum/results/split3', \
         '../model/exp0/TVSum/results/split4'] # path to the json files with the computed importance scores for each epoch
 
-for path in paths:
+for path in [p for p in paths if "f_scores.txt" not in listdir(p)]:
     results = listdir(path)
     results.sort(key=lambda video: int(video[6:-5]))
     PATH_TVSum = '../data/TVSum/eccv16_dataset_tvsum_google_pool5.h5'

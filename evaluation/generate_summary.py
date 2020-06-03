@@ -11,6 +11,7 @@ def generate_summary(all_shot_bound, all_scores, all_nframes, all_positions):
         positions = all_positions[video_index]
 
         # Compute the importance scores for the initial frame sequence (not the subsampled one)
+        print(n_frames)
         frame_scores = np.zeros((n_frames), dtype=np.float32)
         if positions.dtype != int:
             positions = positions.astype(np.int32)

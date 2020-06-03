@@ -12,7 +12,7 @@ paths = ['../model/exp0/SumMe/results/split0', \
         '../model/exp0/SumMe/results/split4'] # path to the json files with the computed importance scores for each epoch
 
 for path in [p for p in paths if "f_scores.txt" not in listdir(p)]:
-    results = listdir(path)
+    results = [r for r in listdir(path) if "f_scores" not in r]
     results.sort(key=lambda video: int(video[6:-5]))
     PATH_SumMe = '../data/SumMe/eccv16_dataset_summe_google_pool5.h5'
     eval_method = 'max' # the proposed evaluation method for SumMe videos

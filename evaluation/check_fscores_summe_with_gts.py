@@ -64,4 +64,8 @@ for path in [p for p in paths if "f_scores_gts.txt" not in listdir(p)]:
         print("f_score: ",np.mean(all_f_scores))
     
     with open(path+'/f_scores_gts.txt', 'w') as outfile:  
+<<<<<<< HEAD
         json.dump(f_score_epochs, outfile)
+=======
+        json.dump(f_score_epochs, outfile)
+>>>>>>> 044e9341c3701d8fdb7ff9397568feface8793e2

@@ -35,7 +35,7 @@ for path in [p for p in paths if "f_scores.txt" not in listdir(p)]:
             for video_name in keys:
                 video_index = video_name[6:]
                 
-                print(video_name, video_index)
+                #print(video_name, video_index)
                 
                 user_summary = np.array( hdf.get('video_'+video_index+'/user_summary') )
                 sb = np.array( hdf.get('video_'+video_index+'/change_points') )
@@ -47,7 +47,7 @@ for path in [p for p in paths if "f_scores.txt" not in listdir(p)]:
                 all_nframes.append(n_frames)
                 all_positions.append(positions)
     
-                print(n_frames)
+                #print(n_frames)
                 
         all_summaries = generate_summary(all_shot_bound, all_scores, all_nframes, all_positions)
     

@@ -14,7 +14,7 @@ class VideoData(Dataset):
         self.datasets = ['../data/SumMe/eccv16_dataset_summe_google_pool5.h5',
                          '../data/TVSum/eccv16_dataset_tvsum_google_pool5.h5',
                          '../data/SumMe/summe_i3d_mixed5c.h5',
-                         '../data/SumMe/tvsum_i3d_mixed5c.h5']
+                         '../data/TVSum/tvsum_i3d_mixed5c.h5']
         self.splits_filename = ['../data/splits/' + self.name + '_splits.json']
         self.splits = []
         self.split_index = split_index # it represents the current split (varies from 0 to 4)
@@ -53,12 +53,12 @@ class VideoData(Dataset):
             return frame_features
 
 
-def get_loader(mode, name, split_index):
+def get_loader(mode, name, features_type, split_index):
     if mode.lower() == 'train':
-        vd = VideoData(mode, name, split_index)
+        vd = VideoData(mode, name, features_type, split_index)
         return DataLoader(vd, batch_size=1)
     else:
-        return VideoData(mode, name, split_index)
+        return VideoData(mode, name, features_type, split_index)
 
 
 if __name__ == '__main__':

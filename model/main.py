@@ -12,8 +12,8 @@ if __name__ == '__main__':
     print(test_config)
     print('split_index:', config.split_index)
     
-    train_loader = get_loader(config.mode, config.video_type, config.split_index)
-    test_loader = get_loader(test_config.mode, config.video_type, test_config.split_index)
+    train_loader = get_loader(config.mode, config.video_type, config.features_type, config.split_index)
+    test_loader = get_loader(test_config.mode, config.video_type, config.features_type, test_config.split_index)
     solver = Solver(config, train_loader, test_loader)
 
     solver.build()

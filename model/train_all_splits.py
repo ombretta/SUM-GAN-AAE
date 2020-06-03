@@ -20,9 +20,9 @@ module use /opt/insy/modulefiles\n\
 module load cuda/10.0 cudnn/10.0-7.6.0.64\n\
 srun python main.py --split_index "
 
-video_types = ["TVSum", "SumMe"]
+video_types = ["TVSum"]#, "SumMe"]
 
-features_type = "i3d", #"google"
+features_type = "i3d" #"google"
 
 for video_type in video_types:
     for split_index in range(5):

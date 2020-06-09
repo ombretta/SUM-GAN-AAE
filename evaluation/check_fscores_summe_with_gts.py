@@ -5,16 +5,17 @@ import h5py
 from generate_summary import generate_summary
 from evaluation_metrics import evaluate_summary
 
-paths = ['../model/exp0/SumMe/results/split0', \
-         '../model/exp0/SumMe/results/split1', \
-         '../model/exp0/SumMe/results/split2', \
-        '../model/exp0/SumMe/results/split3', \
-        '../model/exp0/SumMe/results/split4'] # path to the json files with the computed importance scores for each epoch
+paths = ['../model/exp0_i3d/SumMe/results/split0', \
+         '../model/exp0_i3d/SumMe/results/split1', \
+         '../model/exp0_i3d/SumMe/results/split2', \
+        '../model/exp0_i3d/SumMe/results/split3', \
+        '../model/exp0_i3d/SumMe/results/split4'] # path to the json files with the computed importance scores for each epoch
 
 for path in [p for p in paths if "f_scores_gts.txt" not in listdir(p)]:
-    results = [r for r in listdir(path) if "f_scores" not in r]
+    results = [r for r in listdir(path) if "f_scores" not in r and ".json" in r]
     results.sort(key=lambda video: int(video[6:-5]))
-    PATH_SumMe = '../data/SumMe/eccv16_dataset_summe_google_pool5.h5'
+    # PATH_SumMe = '../data/SumMe/eccv16_dataset_summe_google_pool5.h5'
+    PATH_SumMe = '../data/SumMe/summe_i3d_mixed5c_aligned.h5'
     eval_method = 'max' # the proposed evaluation method for SumMe videos
     
     # for each epoch, read the results' file and compute the f_score
@@ -64,8 +65,4 @@ for path in [p for p in paths if "f_scores_gts.txt" not in listdir(p)]:
         print("f_score: ",np.mean(all_f_scores))
     
     with open(path+'/f_scores_gts.txt', 'w') as outfile:  
-<<<<<<< HEAD
         json.dump(f_score_epochs, outfile)
-=======
-        json.dump(f_score_epochs, outfile)
->>>>>>> 044e9341c3701d8fdb7ff9397568feface8793e2

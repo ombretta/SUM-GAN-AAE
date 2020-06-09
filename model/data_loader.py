@@ -53,12 +53,12 @@ class VideoData(Dataset):
             return frame_features
 
 
-def get_loader(mode, name, split_index):
+def get_loader(mode, name, features_type, split_index):
     if mode.lower() == 'train':
-        vd = VideoData(mode, name, split_index)
+        vd = VideoData(mode, name, features_type, split_index)
         return DataLoader(vd, batch_size=1)
     else:
-        return VideoData(mode, name, split_index)
+        return VideoData(mode, name, features_type, split_index)
 
 
 if __name__ == '__main__':

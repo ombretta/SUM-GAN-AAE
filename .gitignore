@@ -1,4 +1,5 @@
 *.sbatch
 *.out
 model/exp0/
+model/exp0_i3d/
 data/

@@ -5,16 +5,16 @@ import h5py
 from generate_summary import generate_summary
 from evaluation_metrics import evaluate_summary
 
-paths = ['../model/exp0/TVSum/results/split0', \
-         '../model/exp0/TVSum/results/split1', \
-         '../model/exp0/TVSum/results/split2', \
-        '../model/exp0/TVSum/results/split3', \
-        '../model/exp0/TVSum/results/split4'] # path to the json files with the computed importance scores for each epoch
+paths = ['../model/exp0_i3d/TVSum/results/split0', \
+         '../model/exp0_i3d/TVSum/results/split1', \
+         '../model/exp0_i3d/TVSum/results/split2', \
+        '../model/exp0_i3d/TVSum/results/split3', \
+        '../model/exp0_i3d/TVSum/results/split4'] # path to the json files with the computed importance scores for each epoch
 
 for path in [p for p in paths if "f_scores_gts.txt" not in listdir(p)]:
-    results = [r for r in listdir(path) if "f_scores" not in r]
+    results = [r for r in listdir(path) if "f_scores" not in r and ".json" in r]
     results.sort(key=lambda video: int(video[6:-5]))
-    PATH_TVSum = '../data/TVSum/eccv16_dataset_tvsum_google_pool5.h5'
+    PATH_TVSum = '../data/TVSum/tvsum_i3d_mixed5c_aligned.h5'
     eval_method = 'avg' # the proposed evaluation method for TVSum videos
     
     # for each epoch, read the results' file and compute the f_score
@@ -41,6 +41,8 @@ for path in [p for p in paths if "f_scores_gts.txt" not in listdir(p)]:
                 n_frames = np.array( hdf.get('video_'+video_index+'/n_frames') )
                 positions = np.array( hdf.get('video_'+video_index+'/picks') )
                 
+                # print("gtscore", len(gt_score))
+                # print("position", len(positions))
                 all_gt_scores.append(gt_score)
                 all_shot_bound.append(sb)
                 all_nframes.append(n_frames)

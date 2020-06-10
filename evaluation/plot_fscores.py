@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 dataset = "TVSum"
-folder = "reg05_i3d"
+folder = "reg05_lr5_i3d"
 
 f_scores = {}
 f_scores_gts = {}
@@ -20,7 +20,7 @@ for score in ["f_scores", "f_scores_gts"]:
     average_scores = [0 for i in range(100)]
     
     figure = plt.figure(score)
-    for split in range(4):
+    for split in range(5):
         fscores_path = "../model/"+folder+"/"+dataset+"/results/split"+str(split)+"/"+score+".txt"
         
         with open(fscores_path, "r") as f:
@@ -32,10 +32,10 @@ for score in ["f_scores", "f_scores_gts"]:
         
         plt.plot(scores_per_epoch)
     
-    print("Average", score, str(round(max(average_scores)/4, 2)), "at epoch", np.argmax(average_scores)+1)
+    print("Average", score, str(round(max(average_scores)/5, 2)), "at epoch", np.argmax(average_scores)+1)
     plt.plot([a/5 for a in average_scores])
 
-    plt.legend(["split " + str(i) for i in range(4)]+["average"])    
+    plt.legend(["split " + str(i) for i in range(5)]+["average"])    
     plt.title(dataset+" - "+score)
     plt.xlabel("epoch")
     plt.ylabel("f-score")

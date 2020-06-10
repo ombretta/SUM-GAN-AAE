@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 import pprint
 
-save_dir = Path('exp0_i3d') #instead of exp0
+# save_dir = Path('exp0_i3d') #instead of exp0
 
 def str2bool(v):
     """string to boolean"""
@@ -25,6 +25,7 @@ class Config(object):
         self.set_dataset_dir(self.video_type)
 
     def set_dataset_dir(self, video_type='TVSum'):
+        save_dir = Path(self.save_dir) # added
         self.log_dir = save_dir.joinpath(video_type, 'logs/split'+str(self.split_index))
         self.score_dir = save_dir.joinpath(video_type, 'results/split'+str(self.split_index))
         self.save_dir = save_dir.joinpath(video_type, 'models/split'+str(self.split_index))
@@ -50,6 +51,7 @@ def get_config(parse=True, **optional_kwargs):
     parser.add_argument('--verbose', type=str2bool, default='true')
     parser.add_argument('--video_type', type=str, default='TVSum')
     parser.add_argument('--features_type', type=str, default='google') #added i3d option
+    parser.add_argument('--save_dir', type=str, default='exp0') 
 
     # Model
     parser.add_argument('--input_size', type=int, default=1024)

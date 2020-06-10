@@ -42,7 +42,11 @@ features_type = "i3d" #"google"
 
 regularization_factors = [0.05, 0.1, 0.15, 0.3]
 
+<<<<<<< HEAD
 lr = 1e-5
+=======
+lr = 1e-4
+>>>>>>> 5bd54eccdbb88095178278dd4a27650f6340bff7
 
 for video_type in video_types:
     

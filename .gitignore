@@ -2,4 +2,6 @@
 *.out
 model/exp0/
 model/exp0_i3d/
+model/reg05_i3d/
+model/reg05_lr5_i3d/
 data/

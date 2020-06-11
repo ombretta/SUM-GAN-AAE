@@ -1,15 +1,18 @@
 from os import listdir
+import sys
 import json
 import numpy as np
 import h5py
 from generate_summary import generate_summary
 from evaluation_metrics import evaluate_summary
 
-paths = ['../model/reg05_lr5_i3d/SumMe/results/split0', \
-         '../model/reg05_lr5_i3d/SumMe/results/split1', \
-         '../model/reg05_lr5_i3d/SumMe/results/split2', \
-        '../model/reg05_lr5_i3d/SumMe/results/split3', \
-        '../model/reg05_lr5_i3d/SumMe/results/split4'] # path to the json files with the computed importance scores for each epoch
+results_folder = str(sys.argv[1])
+
+paths = ['../model/'+results_folder+'/SumMe/results/split0', \
+         '../model/'+results_folder+'/SumMe/results/split1', \
+         '../model/'+results_folder+'/SumMe/results/split2', \
+        '../model/'+results_folder+'/SumMe/results/split3', \
+        '../model/'+results_folder+'/SumMe/results/split4'] # path to the json files with the computed importance scores for each epoch
 
 for path in [p for p in paths if "f_scores_gts.txt" not in listdir(p)]:
     print(path)

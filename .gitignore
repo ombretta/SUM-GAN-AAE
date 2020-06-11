@@ -3,5 +3,14 @@
 model/exp0/
 model/exp0_i3d/
 model/reg05_i3d/
+model/reg01_lr5_i3d/
+model/reg01_lr4_i3d/
+model/reg03_lr5_i3d/
+model/reg03_lr4_i3d/
 model/reg05_lr5_i3d/
+model/reg05_lr4_i3d/
+model/reg005_lr5_i3d/
+model/reg005_lr4_i3d/
+model/reg015_lr5_i3d/
+model/reg015_lr4_i3d/
 data/

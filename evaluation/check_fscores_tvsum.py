@@ -11,7 +11,7 @@ paths = ['../model/reg05_lr5_i3d/TVSum/results/split0', \
         '../model/reg05_lr5_i3d/TVSum/results/split3', \
         '../model/reg05_lr5_i3d/TVSum/results/split4'] # path to the json files with the computed importance scores for each epoch
 
-for path in [p for p in paths if "f_scores.txt" not in listdir(p)]:
+for path in [p for p in paths if "f_scores.txt" not in listdir(p) and len(listdir(p))>90]:
     print(path)
     results = [r for r in listdir(path) if "f_scores" not in r and ".json" in r]
     results.sort(key=lambda video: int(video[6:-5]))

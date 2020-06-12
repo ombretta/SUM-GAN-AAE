@@ -29,7 +29,7 @@ for score in ["f_scores", "f_scores_gts"]:
         fscores_path = "../model/"+folder+"/"+dataset+"/results/split"+str(split)+"/"+score+".txt"
         
         if os.path.exists(fscores_path):
-            valid_splits.appen(split)
+            valid_splits.append(split)
             with open(fscores_path, "r") as f:
                 scores_per_epoch = f.read()
             scores_per_epoch = [float(s) for s in scores_per_epoch[1:-1].split(", ")]

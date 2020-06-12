@@ -39,7 +39,8 @@ def generate_summary(all_shot_bound, all_scores, all_nframes, all_positions):
             shot_lengths.append(shot[1]-shot[0]+1)
             shot_imp_scores.append((frame_scores[shot[0]:shot[1]+1].mean()).item())
 	
-	# Select the best shots using the knapsack implementation
+	# Select the best shots using the knapsack 
+        # Summary max length: 15% of the original video length in frames
         final_max_length = int((shot[1]+1)*0.15)
         
         print("final_max_length", final_max_length)

@@ -11,20 +11,26 @@ def generate_summary(all_shot_bound, all_scores, all_nframes, all_positions):
         positions = all_positions[video_index]
 
         # Compute the importance scores for the initial frame sequence (not the subsampled one)
-        # print(n_frames)
-        # print(len(frame_init_scores))
+        
+        print("shot_bound", shot_bound.shape)
+        print("frame_init_scores", len(frame_init_scores))
+        print("n_frames", n_frames)
+        print("positions", positions)
 
         frame_scores = np.zeros((n_frames), dtype=np.float32)
         if positions.dtype != int:
             positions = positions.astype(np.int32)
         if positions[-1] != n_frames:
             positions = np.concatenate([positions, [n_frames]])
+        # print("positions", positions)
         for i in range(len(positions) - 1):
             pos_left, pos_right = positions[i], positions[i+1]
             if i == len(frame_init_scores):
                 frame_scores[pos_left:pos_right] = 0
             else:
                 frame_scores[pos_left:pos_right] = frame_init_scores[i]
+                
+        print("frame_scores", frame_scores.shape)
 	
     	# Compute shot-level importance scores by taking the average importance scores of all frames in the shot
         shot_imp_scores = []
@@ -35,6 +41,9 @@ def generate_summary(all_shot_bound, all_scores, all_nframes, all_positions):
 	
 	# Select the best shots using the knapsack implementation
         final_max_length = int((shot[1]+1)*0.15)
+        
+        print("final_max_length", final_max_length)
+        print("shot_lengths", shot_lengths)
 
         selected = knapSack(final_max_length, shot_lengths, shot_imp_scores, len(shot_lengths))
 		

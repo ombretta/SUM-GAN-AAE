@@ -39,11 +39,13 @@ for score in ["f_scores", "f_scores_gts"]:
             
             plt.plot(scores_per_epoch)
     
-    print("Average", score, str(round(max(average_scores)/len(valid_splits), 2)), "at epoch", np.argmax(average_scores)+1)
-    plt.plot([a/len(valid_splits) for a in average_scores])
+    if len(valid_splits) != 0:
+        print("Average", score, str(round(max(average_scores)/len(valid_splits), 2)), "at epoch", np.argmax(average_scores)+1)
+        plt.plot([a/len(valid_splits) for a in average_scores])
+    
+        plt.legend(["split " + str(i) for i in valid_splits]+["average"])    
+        plt.title(dataset+" - "+score)
+        plt.xlabel("epoch")
+        plt.ylabel("f-score")
+        plt.savefig("../model/"+folder+"/"+dataset+"/results/"+score+".png")
 
-    plt.legend(["split " + str(i) for i in valid_splits]+["average"])    
-    plt.title(dataset+" - "+score)
-    plt.xlabel("epoch")
-    plt.ylabel("f-score")
-    plt.savefig("../model/"+folder+"/"+dataset+"/results/"+score+".png")
